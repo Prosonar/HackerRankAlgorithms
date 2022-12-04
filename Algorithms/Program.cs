@@ -1700,26 +1700,6 @@ namespace Algorithms
             Console.WriteLine(result);
             Console.ReadLine();
         }
-        
-        void PIWorksTest()
-        {
-        int[] numbers =
-        {
-                215,
-                193, 124,
-                117, 237, 442,
-                218, 935, 347, 235,
-                320, 804, 522, 417, 345,
-                229, 601, 723, 835, 133, 124,
-                248, 202, 277, 433, 207, 263, 257,
-                359, 464, 504, 528, 516, 716, 871, 182,
-
-
-            };
-        int[] a = { 1, 8, 4, 2, 6, 9, 8, 5, 9, 3 };
-        int result = PIWorks.FindPathWithMaxValue(numbers);
-        bool isPrime = PIWorks.IsPrimeNumber(541);
-        Console.WriteLine(result);
-    }
+       
     }
 }
