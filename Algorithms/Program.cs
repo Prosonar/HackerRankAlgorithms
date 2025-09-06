@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Algorithms
 {
@@ -1454,6 +1456,197 @@ namespace Algorithms
             return result;
         }
 
+        public static List<int> CutTheSticks(List<int> arr)
+        {
+            var stickCount = new List<int>();
+
+            do
+            {
+                stickCount.Add(arr.Count);
+
+                var min = arr.Min();
+
+                arr.RemoveAll(x => x == min);
+
+            } while (arr.Count != 0);
+
+            return stickCount;
+        }
+
+        public static void KaprekarNumbers(int p, int q)
+        {
+            var response = new List<long>();
+
+            if(p == 1)
+            {
+                response.Add(1);
+            }
+
+            for (long i = p; i <= q; i++)
+            {
+                var square = (i * i).ToString();
+                
+                var length = square.Length;
+
+                if(length == 1)
+                {
+                    continue;
+                }
+
+                var number1 = int.Parse(square.Substring(0, length / 2));
+                var number2 = int.Parse(square.Substring(length / 2));
+
+                if (number1 + number2 == i && number2 != 0)
+                {
+                    response.Add(i);
+                }
+            }
+
+            if(response.Count != 0)
+            {
+                foreach (var item in response)
+                {
+                    Console.WriteLine(item.ToString() + " ");
+                }
+            }
+            else
+            {
+                Console.WriteLine("INVALID RANGE");
+            }
+        }
+
+        public static int PalindromeIndex(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] != s[s.Length - i - 1])
+                {
+                    if (s[i] == s[s.Length - i - 2])
+                    {
+                        return s.Length - i - 1;
+                    }
+                    else
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        public static int MaximizingXor(int l, int r)
+        {
+            var max = 0;
+            for (int i = l; i <= r; i++)
+            {
+                for(int j = l; j <= r; j++)
+                {
+                    var value = i ^ j;
+
+                    if (value > max)
+                    {
+                        max = value;
+                    }
+                }
+            }
+
+            return max;
+        }
+
+        public static string FairRations(List<int> breads)
+        {
+            var oddCount = breads.Count(x => x % 2 == 1);
+
+            if(oddCount % 2 == 1)
+            {
+                return "NO";
+            }
+
+            var count = 0;
+
+            for (int i = 0; i < breads.Count - 1; i++)
+            {
+                if (breads[i] % 2 == 1)
+                {
+                    breads[i]++;
+                    breads[i + 1]++;
+                    count += 2;
+                }
+            }
+
+            return count.ToString();
+        }
+
+        public static List<int> QuickSort(List<int> arr)
+        {
+            var left = new List<int>();
+            var right = new List<int>();
+            var equel = arr[0];
+
+            foreach(var item in arr)
+            {
+                if(item < equel)
+                {
+                    left.Add(item);
+                }
+                if(item > equel)
+                {
+                    right.Add(item);
+                }
+            }
+
+            var result = new List<int>();
+
+            result.AddRange(left);
+            result.Add(equel);
+            result.AddRange(right);
+
+            return result;
+        }
+
+        public static void InsertionSort2(int n, List<int> arr)
+        {
+            for(int i = 0; i < arr.Count;i++)
+            {
+                for(int j = i + 1; j < arr.Count; j++)
+                {
+                    if(arr[i] > arr[j])
+                    {
+                        var temp = arr[j];
+                        arr[j] = arr[i];
+                        arr[i] = temp;
+                    }
+                }
+
+                Console.WriteLine(string.Join(' ', arr));
+            }
+        }
+
+    }
+
+    public static class StringExtensions
+    {
+        public static string Capitalize(this string value)
+        {
+            return string.Concat(value.Substring(0, 1).ToUpper(), value.Remove(0, 1));
+        }
+    }
+
+    public static class Normalizer
+    {
+        public static string Normalize(this string s, string languageCode = "")
+        {
+            CultureInfo culture = CultureInfo.InvariantCulture;
+            if (!string.IsNullOrEmpty(languageCode))
+            {
+                culture = CultureInfo.CreateSpecificCulture(languageCode);
+            }
+
+            Regex rgx = new Regex(@"[^\p{L}\p{N}#\+\.]");
+            string filtered = rgx.Replace(s, "");
+            return filtered.ToUpper(culture);
+        }
     }
 
     class DataTypes
@@ -1696,8 +1889,28 @@ namespace Algorithms
             //}
 
             #endregion
-            var result = HackerRank.SaveThePrisoner(208526924, 756265725, 150817879);
-            Console.WriteLine(result);
+
+            int x = 1;
+            var count = 0;
+            while(x++<100)
+            {
+                count++;
+                x *= x;
+                if (x > 50) continue;
+                if (x > 50) break;
+            }
+            //string[] employees = { "Marty McFly", "Stanley Ipliss", "Emma Brown"};
+            //string searchEmployee = null;
+            //for (int i = 0; i < employees.Length; i++)
+            //{
+            //    if (employees[i].EndsWith("Ipkiss"))
+            //    {
+            //        searchEmployee = employees[i];
+            //        break;
+            //    }
+            //}
+
+            Console.WriteLine(count);
             Console.ReadLine();
         }
        
